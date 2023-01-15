@@ -2,4 +2,6 @@
     <string name="app_name">GiphyApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="API_URL">https://api.giphy.com/v1/gifs/</string>
+    <string name="test">Hello</string>
 </resources>
