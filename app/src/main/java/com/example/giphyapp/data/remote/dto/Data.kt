@@ -1,5 +1,7 @@
 package com.example.giphyapp.data.remote.dto
 
+import com.example.giphyapp.data.local.GiphyEntity
+
 data class Data(
     val analystic_response_payload: String,
     val bitly_gif_url: String,
@@ -20,5 +22,14 @@ data class Data(
     val url: String,
     val user: User,
     val username: String
-
-)
+) {
+    fun toGiphyEntity(searchQuery: String):GiphyEntity {
+        return GiphyEntity(
+            id = id,
+            title = title,
+            url = images.original.url,
+            searchQuery = searchQuery,
+            blocked = false
+        )
+    }
+}
