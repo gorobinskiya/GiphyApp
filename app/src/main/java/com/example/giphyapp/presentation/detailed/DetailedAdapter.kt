@@ -1,4 +1,4 @@
-package com.example.giphyapp.presentation.giflist
+package com.example.giphyapp.presentation.detailed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,30 +7,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.giphyapp.data.local.GiphyEntity
-import com.example.giphyapp.databinding.GifItemBinding
+import com.example.giphyapp.databinding.DetailedGifItemBinding
 
 
-class GiphyListAdapter : PagingDataAdapter<GiphyEntity, GiphyListAdapter.GifViewHolder>(
+class DetailedAdapter : PagingDataAdapter<GiphyEntity, DetailedAdapter.GifViewHolder>(
     COMPARATOR
-){
-    var adapterClickListener: AdapterClickListener? = null
+) {
+    var detailedClickListener: DetailedClickListener? = null
 
-    inner class GifViewHolder(private val binding: GifItemBinding) :
+    inner class GifViewHolder(private val binding: DetailedGifItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindGif(gif: GiphyEntity,  absoluteAdapterPosition: Int) {
+        fun bindGif(gif: GiphyEntity) {
             binding.apply {
                 titleGif.text = gif.title
                 Glide.with(this.root)
                     .load(gif.url)
                     .fitCenter()
                     .into(gifImage)
-                deleteGif.setOnClickListener {
-                    adapterClickListener?.onGifDeleted(gif)
-                }
-                gifView.setOnClickListener {
-                    adapterClickListener?.onGifClicked(gif, absoluteAdapterPosition)
-                    println("absoluteAdapterPosition   in VH: $absoluteAdapterPosition")
+                deleteDetailed.setOnClickListener {
+                    detailedClickListener?.deleteGif(gif)
+
                 }
             }
         }
@@ -38,13 +35,13 @@ class GiphyListAdapter : PagingDataAdapter<GiphyEntity, GiphyListAdapter.GifView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
         val binding =
-            GifItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            DetailedGifItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GifViewHolder(binding)
     }
 
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
-        getItem(position)?.let { holder.bindGif(it, holder.absoluteAdapterPosition) }
+        getItem(position)?.let { holder.bindGif(it) }
     }
 
 
@@ -59,9 +56,8 @@ class GiphyListAdapter : PagingDataAdapter<GiphyEntity, GiphyListAdapter.GifView
             }
         }
     }
-
-    interface AdapterClickListener {
-        fun onGifClicked(gif: GiphyEntity?, position: Int)
-        fun onGifDeleted(gif: GiphyEntity?)
+    interface DetailedClickListener {
+        fun deleteGif (gif: GiphyEntity?)
     }
+
 }

@@ -5,9 +5,9 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/gif_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,6 +21,7 @@
                 android:layout_height="400sp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:background="#C5C1C1"
                 android:scaleType="center" />
 
             <TextView
@@ -34,17 +35,14 @@
                 android:textSize="20sp"
                 tools:text="Name" />
 
-            <TextView
+            <Button
                 android:id="@+id/delete_gif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:lines="1"
-                android:text="delete"
-                android:textColor="#CF0202"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="-10dp"
+                android:backgroundTint="@color/red"
+                android:text="Delete" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

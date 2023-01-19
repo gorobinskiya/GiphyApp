@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.giphyapp.R
 import com.example.giphyapp.core.hideKeyboard
 import com.example.giphyapp.data.local.GiphyEntity
@@ -35,7 +36,6 @@ class ListFragment : Fragment(R.layout.fragment_list), GiphyListAdapter.AdapterC
         adapter.adapterClickListener = this
         binding.gifsList.adapter = adapter
         collectFromViewModel()
-
         binding.searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -83,7 +83,13 @@ class ListFragment : Fragment(R.layout.fragment_list), GiphyListAdapter.AdapterC
         }
     }
 
-    override fun onGifClicked(gif: GiphyEntity?) {
+    override fun onGifClicked(gif: GiphyEntity?, position: Int) {
+        gif?.let {
+            val action =
+                ListFragmentDirections
+                    .actionListFragmentToDetailFragment(gif,position)
+            findNavController().navigate(action)
+        }
 
     }
 
